@@ -1,0 +1,132 @@
+{
+  "name": "DAM Dev IoT",
+  "features": {
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-contrib/features/mongosh-homebrew:1": {},
+    "ghcr.io/robbert229/devcontainer-features/postgresql-client:1": {},
+    "ghcr.io/devcontainers-contrib/features/apt-packages:1": {},
+    "ghcr.io/devcontainers-contrib/features/apt-get-packages:1": {},
+    "ghcr.io/devcontainers-contrib/features/curl-apt-get:1": {},
+    "ghcr.io/devcontainers-contrib/features/fkill:2": {},
+    "ghcr.io/devcontainers-contrib/features/gitsign-credential-cache:1": {},
+    "ghcr.io/devcontainers-contrib/features/http-server:1": {},
+    "ghcr.io/jungaretti/features/make:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "Grafana.grafana-vscode",
+        "ms-vscode-remote.remote-containers",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "mongodb.mongodb-vscode",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg" 
+      ],
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "sqltools.connections": [
+          {
+            "name": "TimescaleDB",
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "port": 5432,
+            "username": "postgres",
+            "password": "pwddamdev",
+            "database": "postgres",
+            "previewLimit": 50
+          }
+        ],
+        "mongodb.connections": [
+          {
+            "name": "MongoDB",
+            "connectionString": "mongodb://admin:pwddamdev@localhost:27017/",
+            "authenticationDatabase": "admin"
+          }
+        ]
+      }
+    },
+    "codespaces": {
+      "openFiles": [
+        "README.md"
+      ]
+    }
+  },
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "shutdownAction": "stopCompose",
+  //"postCreateCommand": "docker-compose -f docker-compose.yml -f docker-compose.lowcodeetl.yml -f docker-compose.timescaledb.yml -f docker-compose.tdengine.yml -f docker-compose.mongodb.yml -f docker-compose.ekuiperetl.yml up -d",
+  "forwardPorts": [
+    3000,
+    4222,
+    27017,
+    1880,
+    5678,
+    9081,
+    9000,
+    9443,
+    6030,
+    6031,
+    6032,
+    6033,
+    6034,
+    6035,
+    6036,
+    6037,
+    6038,
+    6039,
+    6040,
+    6041,
+    6042,
+    8080,
+    19999
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "Grafana",
+      "onAutoForward": "openBrowser"
+    },
+    "4222": {
+      "label": "NATS",
+      "onAutoForward": "notify"
+    },
+    "27017": {
+      "label": "MongoDB",
+      "onAutoForward": "notify"
+    },
+    "1880": {
+      "label": "Node-RED",
+      "onAutoForward": "openBrowser"
+    },
+    "5678": {
+      "label": "n8n",
+      "onAutoForward": "openBrowser"
+    },
+    "5432": {
+      "label": "timescaledb",
+      "onAutoForward": "notify"
+    },
+    "9081": {
+      "label": "eKuiper",
+      "onAutoForward": "openBrowser"
+    },
+    "9000": {
+      "label": "Portainer",
+      "onAutoForward": "openBrowser"
+    },
+    "6030-6042": {
+      "label": "TDengine"
+    }
+  },
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "8gb",
+    "storage": "32gb"
+  }
+}
